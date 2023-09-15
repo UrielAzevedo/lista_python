@@ -14,7 +14,7 @@ def dados_clima():
     cells             = np.array([])
 
     book  = openpyxl.load_workbook('../Dados_climaticos_historicos.xlsx')
-    sheet = book['Historico_Clima_Macae']
+    sheet = book['Historico_Clima_Rio_de_Janeiro']
 
     for row in range(4, 8):
         for col in range(1, 14):
@@ -33,5 +33,7 @@ def dados_clima():
     plt.plot(meses, temperatura_media)
     plt.plot(meses, temperatura_min)
     plt.plot(meses, temperatura_max)
+
+    print(temperatura_media, temperatura_min, temperatura_max)
 
     plt.savefig('my_plot.png')
