@@ -4,4 +4,4 @@ arr = [0.2332, 12.334]
 
 # ex1.ex_i(arr)
 
-ex4.dados_clima()
+ex4.asc()

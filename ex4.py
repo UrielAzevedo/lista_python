@@ -5,35 +5,37 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def dados_clima():
+def asc():
 
-    meses             = []
-    temperatura_max   = []
-    temperatura_min   = []
-    temperatura_media = []
-    cells             = np.array([])
+    data_raw = np.loadtxt('../dados_rj.txt', dtype=float)
+    data = [list(a) for a in zip(data_raw[0], data_raw[1], data_raw[2])]
 
-    book  = openpyxl.load_workbook('../Dados_climaticos_historicos.xlsx')
-    sheet = book['Historico_Clima_Rio_de_Janeiro']
+    indices = np.argsort(data[:, 0])
+    print(data[indices])
 
-    for row in range(4, 8):
-        for col in range(1, 14):
-            char = get_column_letter(col)
-            cells = np.append(cells, sheet[char + str(row)].value)
+    reshaped_data = data.reshape(3, 12)
+    print(reshaped_data)
 
-    dados = np.split(cells, 4)
+    transposed_data = data.transpose()
+    print(transposed_data)
 
-    meses             = np.delete(dados[0], 0)
-    temperatura_media = np.delete(dados[1], 0).astype(float)
-    temperatura_min   = np.delete(dados[2], 0).astype(float)
-    temperatura_max   = np.delete(dados[3], 0).astype(float)
+    concatenated_data = np.concatenate((data, data), axis=0)
+    print(concatenated_data)
 
-    dicionario = {key: [value1, value2, value3] for key, value1, value2, value3 in zip(meses, temperatura_media, temperatura_min, temperatura_max)}
+    split_data = np.split(data, 3)
+    for chunk in split_data:
+        print(chunk)
 
-    plt.plot(meses, temperatura_media)
-    plt.plot(meses, temperatura_min)
-    plt.plot(meses, temperatura_max)
+    flipped_data = np.flip(data, axis=0)
+    print(flipped_data)
 
-    print(temperatura_media, temperatura_min, temperatura_max)
+    row_to_insert = np.zeros(data.shape[1])
+    inserted_data = np.insert(data, 2, row_to_insert, axis=0)
+    print(inserted_data)
 
-    plt.savefig('my_plot.png')
+    row_to_append = np.ones(data.shape[1])
+    appended_data = np.append(data, [row_to_append], axis=0)
+    print(appended_data)
+
+    deleted_data = np.delete(data, 4, axis=0)
+    print(deleted_data)
